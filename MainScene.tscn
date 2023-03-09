@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://os6mycqxmxb3"]
+
+[ext_resource type="Script" path="res://CharacterBody3D.gd" id="1_cnumv"]
+[ext_resource type="Script" path="res://Trail3D.gd" id="2_n6xy7"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_kjl74"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xyms8"]
+
+[sub_resource type="Gradient" id="Gradient_ld3mo"]
+colors = PackedColorArray(1, 0.0117647, 0.105882, 0.607843, 1, 0.483429, 0.513289, 0.443137)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wiuo0"]
+gradient = SubResource("Gradient_ld3mo")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hftvf"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(1, 0.376471, 0.458824, 1)
+albedo_texture = SubResource("GradientTexture2D_wiuo0")
+
+[sub_resource type="BoxMesh" id="BoxMesh_4ov2t"]
+size = Vector3(30, 1, 30)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_s2mxv"]
+data = PackedVector3Array(-15, 0.5, 15, 15, 0.5, 15, -15, -0.5, 15, 15, 0.5, 15, 15, -0.5, 15, -15, -0.5, 15, 15, 0.5, -15, -15, 0.5, -15, 15, -0.5, -15, -15, 0.5, -15, -15, -0.5, -15, 15, -0.5, -15, 15, 0.5, 15, 15, 0.5, -15, 15, -0.5, 15, 15, 0.5, -15, 15, -0.5, -15, 15, -0.5, 15, -15, 0.5, -15, -15, 0.5, 15, -15, -0.5, -15, -15, 0.5, 15, -15, -0.5, 15, -15, -0.5, -15, 15, 0.5, 15, -15, 0.5, 15, 15, 0.5, -15, -15, 0.5, 15, -15, 0.5, -15, 15, 0.5, -15, -15, -0.5, 15, 15, -0.5, 15, -15, -0.5, -15, 15, -0.5, 15, 15, -0.5, -15, -15, -0.5, -15)
+
+[node name="Main" type="Node3D"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+script = ExtResource("1_cnumv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+mesh = SubResource("CapsuleMesh_kjl74")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_xyms8")
+
+[node name="Trail3D" type="MeshInstance3D" parent="CharacterBody3D"]
+material_override = SubResource("StandardMaterial3D_hftvf")
+cast_shadow = 0
+skeleton = NodePath("../..")
+script = ExtResource("2_n6xy7")
+lifespan = 2.0
+startColor = Color(1, 0.380392, 0.34902, 1)
+
+[node name="Trail3D2" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_hftvf")
+cast_shadow = 0
+skeleton = NodePath("../..")
+script = ExtResource("2_n6xy7")
+lifespan = 2.0
+startColor = Color(1, 0.380392, 0.34902, 1)
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.961579, 0.27453, 0, -0.27453, 0.961579, 0, 3.27054, 9.00701)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_4ov2t")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_s2mxv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.633867, 0.773442, 0, -0.773442, 0.633867, 0, 8.2178, 0)
