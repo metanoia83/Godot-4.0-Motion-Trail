@@ -47,15 +47,6 @@ script = ExtResource("2_n6xy7")
 lifespan = 2.0
 startColor = Color(1, 0.380392, 0.34902, 1)
 
-[node name="Trail3D2" type="MeshInstance3D" parent="CharacterBody3D"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_hftvf")
-cast_shadow = 0
-skeleton = NodePath("../..")
-script = ExtResource("2_n6xy7")
-lifespan = 2.0
-startColor = Color(1, 0.380392, 0.34902, 1)
-
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 0.961579, 0.27453, 0, -0.27453, 0.961579, 0, 3.27054, 9.00701)
 
