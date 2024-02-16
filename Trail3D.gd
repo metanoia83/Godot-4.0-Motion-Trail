@@ -72,6 +72,10 @@ func _process(delta):
 	mesh.surface_end()
 
 func appendPoint():
+	var direction = get_global_transform().origin - oldPos
+	direction = direction.normalized()
+	rotation.y = atan2(direction.x, direction.z)
+	
 	points.append(get_global_transform().origin)
 	widths.append([
 		get_global_transform().basis.x * fromWidth,
