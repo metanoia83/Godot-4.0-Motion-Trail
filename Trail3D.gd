@@ -1,4 +1,16 @@
+@tool
 class_name Trail3D extends MeshInstance3D
+
+enum InterpolationMode {
+	LINEAR,
+	SQUARE,
+	CUBE,
+	QUAD
+}
+enum InterpolationDirection {
+	FORWARD,
+	BACKWARD
+}
 
 var points  = []
 var widths  = []
@@ -16,6 +28,10 @@ var lifePoints = []
 @export var scaleTexture = true
 @export var startColor = Color(1.0, 1.0, 1.0, 1.0)
 @export var endColor = Color(1.0, 1.0, 1.0, 0.0)
+
+
+@export var colorInterpolationMode = InterpolationMode.LINEAR
+@export var interpolationDirection = InterpolationDirection.FORWARD
 
 var oldPos
 
@@ -47,9 +63,26 @@ func _process(delta):
 		return
 	
 	mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLE_STRIP)
+
 	for i in range(points.size()):
 		var t = float(i) / (points.size() - 1.0)
-		var currColor = startColor.lerp(endColor, 1 - t)
+		
+		var currColor = endColor
+
+		var progress = t
+
+		if interpolationDirection == InterpolationDirection.BACKWARD:
+			progress = 1 - t
+
+		if colorInterpolationMode == InterpolationMode.LINEAR:
+			currColor = startColor.lerp(endColor, 1 - progress)
+		elif colorInterpolationMode == InterpolationMode.SQUARE:
+			currColor = startColor.lerp(endColor, 1- (progress ** 2))
+		elif colorInterpolationMode == InterpolationMode.CUBE:
+			currColor = startColor.lerp(endColor, 1 - pow(progress, 3))
+		elif colorInterpolationMode == InterpolationMode.QUAD:
+			currColor = startColor.lerp(endColor,1- pow(progress, 4))
+
 		mesh.surface_set_color(currColor)
 		
 		var currWidth = widths[i][0] - pow(1-t, scaleAcceleration) * widths[i][1]
