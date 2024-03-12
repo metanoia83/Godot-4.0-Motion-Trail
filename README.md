@@ -9,4 +9,5 @@ This motion trail is base from https://github.com/metanoia83/Godot-4.0-Motion-Tr
 - more color/alpha interpolation modes
 - forward/backward interpolation
 
-https://github.com/aboudaladdin/Godot-4.0-Motion-Trail/raw/main/screenshot.png?raw=true
+
+* ![alt text](https://github.com/aboudaladdin/Godot-4.0-Motion-Trail/blob/main/screenshot.png?raw=true)
